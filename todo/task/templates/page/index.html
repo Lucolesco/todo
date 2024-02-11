@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href=" {% static 'bootstrap.min.css' %} "> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+      <div class="container">
+          <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading">
+                  <h3 class="panel-title">To Do List</h3>
+              </div>
+              <!-- List group -->
+              <ul id="list" class="list-group">
+                  <li class="list-group-item"><span class="badge">X</span>Pushups!</li>
+                  <li class="list-group-item"><span class="badge">X</span>Get Money</li>
+                  <li class="list-group-item"><span class="badge">X</span>Increase my word power</li>
+                  <li class="list-group-item"><span class="badge">X</span>Beat God at his own game</li>
+                  <li class="list-group-item"><span class="badge">X</span>Make everything go my way</li>
+              </ul>
+          </div>
+          <!-- text input & button -->
+          <div class="row">
+              <div class="col-lg-6">
+                  <div class="input-group">	<span class="input-group-btn">
+            <button id="addButton" class="btn btn-default" type="button">Add</button>
+          </span>
+  
+                      <input id="input" type="text" class="form-control">
+                  </div>
+                  <!-- end input group -->
+              </div>
+              <!-- end col-lg-6 -->
+          </div>
+          <!-- end row -->
+          <br>
+      </div>
+    
+  </body>
+  <script>
+    $(document).ready(function () {
+      //add item if the button is clicked
+      $('#addButton').click(function () {
+          $('<li class="list-group-item"><span class="badge">X</span>' + $('#input').val() + '</li>').appendTo('#list');
+          $('#input').val(null);
+      });
+
+      //add item if the enter key is pressed
+      $('#input').bind("enterKey", function (e) {
+          $('<li class="list-group-item"><span class="badge">X</span>' + $('#input').val() + '</li>').appendTo('#list');
+          $('#input').val(null);
+      });
+
+      $('#input').keyup(function (e) {
+          if (e.keyCode == 13) {
+              $(this).trigger("enterKey");
+          }
+      });
+
+      //remove an item by clicking the badge
+      $(document).on('click', '.badge', function () {
+          $(this).parent().remove();
+      });
+    }); 
+  </script>
+</html>
